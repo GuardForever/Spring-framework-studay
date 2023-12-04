@@ -205,9 +205,10 @@ public abstract class AbstractPropertyResolver implements ConfigurablePropertyRe
 	@Override
 	public String resolveRequiredPlaceholders(String text) throws IllegalArgumentException {
 		if (this.strictHelper == null) {
-			// 初始化PlaceholderHelper
+			// 初始化PlaceholderHelper   PropertyPlaceholderHelper类
 			this.strictHelper = createPlaceholderHelper(false);
 		}
+		// 正式的处理逻辑
 		return doResolvePlaceholders(text, this.strictHelper);
 	}
 
@@ -234,6 +235,7 @@ public abstract class AbstractPropertyResolver implements ConfigurablePropertyRe
 	}
 
 	private String doResolvePlaceholders(String text, PropertyPlaceholderHelper helper) {
+		// lambda表达式  真正的处理逻辑在getPropertyAsRawString  函数式接口作为参数 更灵活  可以延时处理
 		return helper.replacePlaceholders(text, this::getPropertyAsRawString);
 	}
 

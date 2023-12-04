@@ -39,6 +39,7 @@ public class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
 	 * Create a new resolver against the given property sources.
 	 * @param propertySources the set of {@link PropertySource} objects to use
 	 */
+	// 第一次调用  是在AbstractEnvironment  初始化时属性的初始化
 	public PropertySourcesPropertyResolver(@Nullable PropertySources propertySources) {
 		this.propertySources = propertySources;
 	}

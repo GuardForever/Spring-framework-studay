@@ -326,6 +326,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * a custom {@link ConfigurableEnvironment} implementation.
 	 */
 	protected ConfigurableEnvironment createEnvironment() {
+		// 应用程序运行时的环境信息
 		return new StandardEnvironment();
 	}
 

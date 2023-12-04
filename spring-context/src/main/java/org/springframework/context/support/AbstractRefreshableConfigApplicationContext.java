@@ -124,7 +124,7 @@ public abstract class AbstractRefreshableConfigApplicationContext extends Abstra
 	 * @see org.springframework.core.env.Environment#resolveRequiredPlaceholders(String)
 	 */
 	protected String resolvePath(String path) {
-		// getEnvironment 返回的对象是StandardEnvironment
+		// getEnvironment 初始化环境属性的容器  返回的对象是StandardEnvironment
 		// StandardEnvironment继承了AbstractEnvironment   所以会执行AbstractEnvironment.resolveRequiredPlaceholders
 		ConfigurableEnvironment environment = getEnvironment();
 		return getEnvironment().resolveRequiredPlaceholders(path);
