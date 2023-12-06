@@ -142,6 +142,7 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 		// 处理配置文件的占位符
 		setConfigLocations(configLocations);
 		if (refresh) {
+			// 开始进入正题
 			refresh();
 		}
 	}

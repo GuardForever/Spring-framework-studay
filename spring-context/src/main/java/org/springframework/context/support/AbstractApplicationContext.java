@@ -517,6 +517,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
+			// 开始前的准备刷新工作
+			// 1.进行初始化环境容器操作（源码中是个空方法）
+			// 2.对环境属性进行validate验证
+			// 3.初始化earlyApplicationListeners
+			// 4.初始化earlyApplicationEvents
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
@@ -584,9 +589,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	protected void prepareRefresh() {
 		// Switch to active.
-		this.startupDate = System.currentTimeMillis();
+		this.startupDate = System.currentTimeMillis(); // 系统时间long
 		this.closed.set(false);
-		this.active.set(true);
+		this.active.set(true); // 表示应用程序上下文当前正在刷新中
 
 		if (logger.isDebugEnabled()) {
 			if (logger.isTraceEnabled()) {
@@ -598,13 +603,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize any placeholder property sources in the context environment.
+		// 初始化上下文环境中的任何占位符属性源 这个方法留给子类去实现，以满足具体的需求
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable:
 		// see ConfigurablePropertyResolver#setRequiredProperties
+		// 在PrepareRefreshTest#initPropertySources getEnvironment().setRequiredProperties("username");进行必输检查设置
 		getEnvironment().validateRequiredProperties();
 
 		// Store pre-refresh ApplicationListeners...
+		// earlyApplicationListeners属性主要用于在 Spring 容器的生命周期早期阶段注册的应用程序监听器。
 		if (this.earlyApplicationListeners == null) {
 			this.earlyApplicationListeners = new LinkedHashSet<>(this.applicationListeners);
 		}
@@ -616,6 +624,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// Allow for the collection of early ApplicationEvents,
 		// to be published once the multicaster is available...
+		// earlyApplicationEvents这个属性主要用于在 Spring 容器的生命周期早期阶段收集并存储事件
 		this.earlyApplicationEvents = new LinkedHashSet<>();
 	}
 
@@ -626,6 +635,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	protected void initPropertySources() {
 		// For subclasses: do nothing by default.
+		// 留给子类实现   写了一个测试类PrepareRefreshTest
 	}
 
 	/**
